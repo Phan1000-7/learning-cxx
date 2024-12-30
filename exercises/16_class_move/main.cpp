@@ -18,14 +18,27 @@ public:
     DynFibonacci(int capacity): cache(new size_t[capacity]{0,1}), cached(2) {}
 
     // TODO: 实现移动构造器
-    DynFibonacci(DynFibonacci &&) noexcept = delete;
+    DynFibonacci(DynFibonacci &&tmp)  {
+        if(&tmp != this){
+        cached = tmp.cached;
+        tmp.cached = 0;
+        cache = tmp.cache;
+        tmp.cache = nullptr;}
+    };
 
     // TODO: 实现移动赋值
     // NOTICE: ⚠ 注意移动到自身问题 ⚠
-    DynFibonacci &operator=(DynFibonacci &&) noexcept = delete;
+    DynFibonacci &operator=(DynFibonacci &&tmp)  noexcept {
+        if(&tmp != this){
+        cached = tmp.cached;
+        tmp.cached = 0;
+        cache = tmp.cache;
+        tmp.cache = nullptr;}
+        return *this;
+    }
 
     // TODO: 实现析构器，释放缓存空间
-    ~DynFibonacci(){delete[] cache};
+    ~DynFibonacci(){delete[] cache;};
 
     // TODO: 实现正确的缓存优化斐波那契计算
     size_t operator[](int i) {
