@@ -41,5 +41,5 @@ int main(int argc, char **argv) {
     shared = observer.lock();
     ASSERT(observer.use_count() == 0, "");
 
-    return 0;
+    return 0; 
 }
